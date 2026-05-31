@@ -117,13 +117,13 @@ body {
 
 /* ===== HERO ===== */
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   background: linear-gradient(135deg, var(--marrom) 0%, #7a3a15 50%, #9a4a1a 100%);
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 100px 2rem 0;
+  padding: 120px 2rem 60px;
 }
 
 .hero-bg {
@@ -350,7 +350,11 @@ body {
   right: 0;
   line-height: 0;
 }
-.hero-wave svg { display: block; width: 100%; }
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
 
 /* ===== UTILITÁRIOS ===== */
 .section-container {
@@ -397,7 +401,7 @@ body {
 /* ===== PRODUTOS ===== */
 .produtos-section {
   padding: 5rem 0;
-  background: var(--amarelo-claro);
+  background: #ffffff;
   position: relative;
   overflow: visible;
 }
@@ -668,7 +672,7 @@ body {
 /* ===== SOBRE ===== */
 .sobre-section {
   padding: 5rem 0;
-  background: var(--amarelo-claro);
+  background: #ffffff;
   position: relative;
   overflow: visible;
 }
@@ -1131,12 +1135,67 @@ body {
 }
 
 /* ===== CTA SECTION ===== */
+/* Onda de transição no topo da CTA */
+.cta-wave-top {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  line-height: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cta-wave-top svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+/* ===== CTA SECTION ===== */
 .cta-section {
-  padding: 5rem 0;
-  background: linear-gradient(135deg, var(--marrom) 0%, var(--marrom-escuro) 100%);
+  padding: 7rem 0 5rem;
+  background: linear-gradient(to bottom, #ffffff 0%, var(--amarelo-claro) 100%);
   position: relative;
   overflow: hidden;
   text-align: center;
+}
+
+.cta-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--marrom-escuro);
+  margin-bottom: 1rem;
+}
+
+.cta-inner p {
+  color: var(--texto-suave);
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.cta-tel {
+  margin-top: 1.5rem !important;
+  color: var(--texto-suave) !important;
+  font-size: 0.98rem !important;
+  font-weight: 600;
+}
+
+.cta-tel a {
+  color: var(--marrom);
+  text-decoration: none;
+  font-weight: 800;
+  border-bottom: 1.5px dashed rgba(90, 45, 12, 0.4);
+  transition: all 0.2s ease;
+  padding-bottom: 2px;
+}
+
+.cta-tel a:hover {
+  color: var(--laranja);
+  border-bottom-color: var(--laranja);
 }
 
 .cta-bg {
@@ -1147,39 +1206,106 @@ body {
 
 .cta-circle.c1 {
   position: absolute;
-  width: 500px; height: 500px;
-  background: rgba(247,214,69,0.06);
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(247, 214, 69, 0.22) 0%, rgba(247, 214, 69, 0) 65%);
   border-radius: 50%;
-  top: -200px; right: -150px;
+  top: -30px;
+  right: -100px;
 }
 
 .cta-circle.c2 {
   position: absolute;
-  width: 300px; height: 300px;
-  background: rgba(255,255,255,0.04);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(242, 139, 58, 0.12) 0%, rgba(242, 139, 58, 0) 65%);
   border-radius: 50%;
-  bottom: -100px; left: -50px;
+  bottom: -40px;
+  left: -80px;
+}
+
+/* Desenhos vetoriais decorativos na CTA */
+.cta-desenho {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.cta-desenho svg {
+  stroke: rgba(90, 45, 12, 0.055) !important;
+}
+
+.cta-desenho svg path,
+.cta-desenho svg circle,
+.cta-desenho svg line,
+.cta-desenho svg rect {
+  stroke: rgba(90, 45, 12, 0.055) !important;
+}
+
+.cta-desenho svg[fill] {
+  fill: rgba(90, 45, 12, 0.055) !important;
+}
+.cta-desenho svg path[fill] {
+  fill: rgba(90, 45, 12, 0.055) !important;
+}
+.cta-desenho svg circle[fill] {
+  fill: rgba(90, 45, 12, 0.055) !important;
+}
+
+/* Posicionamento dos desenhos nas laterais da CTA */
+.cta-desenho.d-sol {
+  top: 20%;
+  left: 6%;
+  transform: rotate(-15deg);
+}
+
+.cta-desenho.d-torta {
+  top: 35%;
+  right: 6%;
+  transform: rotate(20deg);
+}
+
+.cta-desenho.d-fouet {
+  bottom: 25%;
+  left: 8%;
+  transform: rotate(-30deg);
+}
+
+.cta-desenho.d-rolo {
+  bottom: 20%;
+  right: 8%;
+  transform: rotate(15deg);
+}
+
+.cta-desenho.d-estrela1 {
+  top: 15%;
+  right: 25%;
+  transform: rotate(10deg);
+}
+
+.cta-desenho.d-estrela2 {
+  bottom: 30%;
+  left: 22%;
+  transform: rotate(-15deg);
+}
+
+@media (max-width: 768px) {
+  .cta-desenho {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  .cta-desenho.d-estrela1,
+  .cta-desenho.d-estrela2 {
+    display: none;
+  }
 }
 
 .cta-inner {
   position: relative;
-  z-index: 1;
-}
-
-.cta-inner h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 1rem;
-}
-
-.cta-inner p {
-  color: rgba(255,255,255,0.8);
-  font-size: 1.05rem;
-  max-width: 500px;
-  margin: 0 auto 2rem;
-  line-height: 1.7;
+  z-index: 2;
 }
 
 .btn-cta-grande {
@@ -1195,12 +1321,12 @@ body {
   border-radius: 50px;
   text-decoration: none;
   box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-  transition: all 0.2s;
+  transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-cta-grande:hover {
   background: #1fb855;
-  transform: translateY(-3px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 10px 32px rgba(37,211,102,0.5);
 }
 
@@ -1211,63 +1337,277 @@ body {
   filter: brightness(0) invert(1);
 }
 
-.cta-tel {
-  margin-top: 1.25rem !important;
-  color: rgba(255,255,255,0.6) !important;
-  font-size: 0.9rem !important;
+/* ===== CAROUSEL ===== */
+.depoimentos-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
 }
 
-.cta-tel a {
-  color: var(--amarelo);
-  text-decoration: none;
-  font-weight: 700;
+.carousel-arrow {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(90, 45, 12, 0.12);
+  color: var(--marrom);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(90, 45, 12, 0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  outline: none;
+  user-select: none;
+}
+
+.carousel-arrow:hover:not(.disabled) {
+  background: var(--marrom);
+  color: #ffffff;
+  border-color: var(--marrom);
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(90, 45, 12, 0.18);
+}
+
+.carousel-arrow:active:not(.disabled) {
+  transform: scale(0.95);
+}
+
+.carousel-arrow.disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: rgba(90, 45, 12, 0.08);
+  box-shadow: none;
+}
+
+.depoimentos-carousel-viewport {
+  flex: 1;
+  overflow: hidden;
+}
+
+.depoimentos-carousel-track {
+  display: flex;
+  gap: 1.25rem;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-card {
+  flex: 0 0 calc((100% - 2 * 1.25rem) / 3);
+  min-width: 0;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(90,45,12,0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.carousel-dot.ativo {
+  background: var(--marrom);
+  transform: scale(1.3);
+}
+
+.carousel-dot:hover:not(.ativo) {
+  background: rgba(90,45,12,0.4);
+}
+
+@media (max-width: 900px) {
+  .carousel-card {
+    flex: 0 0 calc((100% - 1.25rem) / 2);
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-card {
+    flex: 0 0 100%;
+  }
+  .carousel-arrow {
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
+  }
 }
 
 /* ===== FOOTER ===== */
 .footer {
-  background: var(--marrom-escuro);
+  background: var(--marrom);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Faixa CTA — removida do footer */
+/* Chocolate derretendo no rodapé da CTA */
+.cta-chocolate-drip {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  line-height: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cta-chocolate-drip svg {
+  display: block;
+  width: 100%;
+  height: 45px;
+}
+
+/* Elementos decorativos no fundo do footer */
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.footer-circle.c1 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+  top: -100px;
+  left: -150px;
+}
+
+.footer-circle.c2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(247, 214, 69, 0.03) 0%, rgba(247, 214, 69, 0) 70%);
+  bottom: -100px;
+  right: -80px;
+}
+
+.footer-desenho {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.45;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.footer-desenho svg {
+  stroke: rgba(255, 255, 255, 0.045) !important;
+}
+
+.footer-desenho svg path,
+.footer-desenho svg circle,
+.footer-desenho svg line,
+.footer-desenho svg rect {
+  stroke: rgba(255, 255, 255, 0.045) !important;
+}
+
+.footer-desenho svg[fill] {
+  fill: rgba(255, 255, 255, 0.045) !important;
+}
+.footer-desenho svg path[fill] {
+  fill: rgba(255, 255, 255, 0.045) !important;
+}
+.footer-desenho svg circle[fill] {
+  fill: rgba(255, 255, 255, 0.045) !important;
+}
+
+/* Posicionamento dos desenhos nas laterais do footer */
+.footer-desenho.d-sol {
+  top: 15%;
+  left: 3%;
+  transform: rotate(-10deg);
+}
+
+.footer-desenho.d-torta {
+  bottom: 12%;
+  left: 25%;
+  transform: rotate(15deg);
+}
+
+.footer-desenho.d-fouet {
+  top: 10%;
+  right: 25%;
+  transform: rotate(-25deg);
+}
+
+.footer-desenho.d-rolo {
+  bottom: 15%;
+  right: 4%;
+  transform: rotate(20deg);
+}
+
+@media (max-width: 768px) {
+  .footer-desenho {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+}
 
 /* Corpo do footer */
 .footer-body {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem 2.5rem;
+  padding: 6rem 2rem 3rem;
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 4rem;
-  align-items: start;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .footer-logo {
-  height: 54px;
+  height: 56px;
   width: auto;
   display: block;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
 }
 
 .footer-tagline {
-  font-size: 0.92rem;
-  color: rgba(255,255,255,0.45);
+  font-size: 0.94rem;
+  color: rgba(255,255,255,0.55);
   font-style: italic;
   line-height: 1.7;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.5rem;
 }
 
 .footer-map-wrapper {
   margin-top: 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 .footer-map-wrapper iframe {
   border-radius: 14px;
-  opacity: 0.9;
-  transition: opacity 0.2s;
+  opacity: 0.95;
+  transition: all 0.3s ease;
 }
 
-.footer-map-wrapper iframe:hover { opacity: 1; }
+.footer-map-wrapper iframe:hover {
+  opacity: 1;
+  transform: scale(1.01);
+}
 
 .footer-map-label {
   font-size: 0.78rem;
@@ -1371,11 +1711,65 @@ body {
 
 .footer-bottom-inner a {
   color: rgba(255,255,255,0.55);
-  text-decoration: underline;
+  text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer-bottom-inner a:hover { color: var(--amarelo); }
+
+/* Assinatura estilo código dev */
+.footer-made-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: 'Courier New', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.fmb-comment {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+
+.fmb-text {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.fmb-name {
+  color: var(--amarelo) !important;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.fmb-name::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--amarelo);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.fmb-name:hover {
+  color: #ffe135 !important;
+  text-shadow: 0 0 12px rgba(247, 214, 69, 0.4);
+}
+
+.fmb-name:hover::after {
+  opacity: 1;
+}
+
+.fmb-dot {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.78rem;
+}
 
 /* Responsivo footer */
 @media (max-width: 700px) {

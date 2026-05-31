@@ -184,6 +184,9 @@ const depoimentos = [
   { nome: "Ana Paula", texto: "Os melhores doces da cidade! Atendimento maravilhoso, fiz meu pedido e chegou tudo perfeito. Super recomendo! 🎂", estrelas: 5, tempo: "há 2 semanas", cor: "#f28b3a" },
   { nome: "João Pedro", texto: "A torta de limão é simplesmente perfeita. Não consigo pedir de outro lugar! A massa é leve e o recheio tem o ponto certo de acidez.", estrelas: 5, tempo: "há 1 mês", cor: "#4285f4" },
   { nome: "Camila Souza", texto: "Entrega rápida e tudo fresquinho. Virei cliente fiel desde o primeiro pedido! Os brigadeiros gourmet são incríveis.", estrelas: 5, tempo: "há 3 semanas", cor: "#34a853" },
+  { nome: "Mariana Lima", texto: "Pedi o kit festa para o aniversário da minha filha e todos adoraram! Os salgadinhos fritos são irresistíveis. Já reservei para o próximo mês! 🎉", estrelas: 5, tempo: "há 1 semana", cor: "#ea4335" },
+  { nome: "Rafael Costa", texto: "Brigadeiros de pistache são simplesmente divinos! Qualidade incrível, embalagem linda. Todo mundo no escritório pediu o contato da Sol.", estrelas: 5, tempo: "há 2 meses", cor: "#9c27b0" },
+  { nome: "Patrícia Alves", texto: "Melhor bolo de cenoura que já comi na vida! Atendimento super atencioso e entrega pontual. Nota 10 para a Sol Tortas! 🌟", estrelas: 5, tempo: "há 3 dias", cor: "#00897b" },
 ];
 
 function abrirWhatsapp(produto: string, preco: string) {
@@ -197,6 +200,13 @@ export default function App() {
   const [categoriaAtiva, setCategoriaAtiva] = useState(0);
   const [navScrolled, setNavScrolled] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+
+  const CARDS_VISIVEIS = 3;
+  const totalSlides = depoimentos.length - CARDS_VISIVEIS + 1;
+
+  const carouselAnterior = () => setCarouselIndex(i => Math.max(0, i - 1));
+  const carouselProximo = () => setCarouselIndex(i => Math.min(totalSlides - 1, i + 1));
 
   useEffect(() => {
     const handleScroll = () => setNavScrolled(window.scrollY > 60);
@@ -283,7 +293,7 @@ export default function App() {
         </div>
         <div className="hero-wave">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fff9ee" />
+            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff" />
           </svg>
         </div>
       </section>
@@ -440,7 +450,7 @@ export default function App() {
         {/* Onda de transição no topo */}
         <div className="depoimentos-wave-top">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none">
-            <path d="M0,0 C480,50 960,10 1440,45 L1440,0 L0,0 Z" fill="var(--amarelo-claro)" />
+            <path d="M0,0 C480,50 960,10 1440,45 L1440,0 L0,0 Z" fill="#ffffff" />
           </svg>
         </div>
 
@@ -524,7 +534,7 @@ export default function App() {
               </svg>
               <div className="google-rating-number">4,5</div>
               <div className="google-stars-row">
-                <span className="google-stars-big">★★★★★</span>
+                <span className="google-stars-big">★★★★⯪</span>
               </div>
               <div className="google-rating-label">Baseado em avaliações do Google</div>
             </div>
@@ -538,25 +548,64 @@ export default function App() {
             </a>
           </div>
 
-          <div className="depoimentos-grid">
-            {depoimentos.map((d, i) => (
-              <div key={i} className="depoimento-card google-card">
-                <div className="google-card-header">
-                  <div className="autor-avatar" style={{ background: d.cor }}>{d.nome[0]}</div>
-                  <div className="google-card-info">
-                    <strong>{d.nome}</strong>
-                    <span className="google-card-tempo">{d.tempo}</span>
+          <div className="depoimentos-carousel-wrapper">
+            <button
+              className={`carousel-arrow arrow-prev ${carouselIndex === 0 ? 'disabled' : ''}`}
+              onClick={carouselAnterior}
+              aria-label="Anterior"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+
+            <div className="depoimentos-carousel-viewport">
+              <div
+                className="depoimentos-carousel-track"
+                style={{ transform: `translateX(calc(-${carouselIndex} * (100% / 3 + 1.25rem * 2 / 3)))` }}
+              >
+                {depoimentos.map((d, i) => (
+                  <div key={i} className="depoimento-card google-card carousel-card">
+                    <div className="google-card-header">
+                      <div className="autor-avatar" style={{ background: d.cor }}>{d.nome[0]}</div>
+                      <div className="google-card-info">
+                        <strong>{d.nome}</strong>
+                        <span className="google-card-tempo">{d.tempo}</span>
+                      </div>
+                      <svg className="google-icon-small" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                      </svg>
+                    </div>
+                    <div className="estrelas google-stars">{"★".repeat(d.estrelas)}</div>
+                    <p>"{d.texto}"</p>
                   </div>
-                  <svg className="google-icon-small" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
-                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
-                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
-                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
-                  </svg>
-                </div>
-                <div className="estrelas google-stars">{"★".repeat(d.estrelas)}</div>
-                <p>"{d.texto}"</p>
+                ))}
               </div>
+            </div>
+
+            <button
+              className={`carousel-arrow arrow-next ${carouselIndex >= totalSlides - 1 ? 'disabled' : ''}`}
+              onClick={carouselProximo}
+              aria-label="Próximo"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          {/* Dots de navegação */}
+          <div className="carousel-dots">
+            {Array.from({ length: totalSlides }).map((_, i) => (
+              <button
+                key={i}
+                className={`carousel-dot ${carouselIndex === i ? 'ativo' : ''}`}
+                onClick={() => setCarouselIndex(i)}
+                aria-label={`Ir para slide ${i + 1}`}
+              />
             ))}
           </div>
 
@@ -581,9 +630,70 @@ export default function App() {
 
       {/* CTA FINAL */}
       <section className="cta-section" id="contato">
+        {/* Onda de transição no topo da CTA */}
+        <div className="cta-wave-top">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,0 L1440,0 L1440,35 C960,10 480,50 0,20 Z" fill="var(--amarelo-medio)" />
+          </svg>
+        </div>
+
         <div className="cta-bg">
           <div className="cta-circle c1"></div>
           <div className="cta-circle c2"></div>
+
+          {/* Desenhos vetoriais de confeitaria na CTA (Linhas nítidas e suaves) */}
+          <div className="cta-desenho d-sol">
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="rgba(90, 45, 12, 0.05)" strokeWidth="3.5" strokeLinecap="round">
+              <circle cx="50" cy="50" r="20" />
+              <line x1="50" y1="10" x2="50" y2="20" />
+              <line x1="50" y1="80" x2="50" y2="90" />
+              <line x1="10" y1="50" x2="20" y2="50" />
+              <line x1="80" y1="50" x2="90" y2="50" />
+              <line x1="22" y1="22" x2="29" y2="29" />
+              <line x1="71" y1="71" x2="78" y2="78" />
+              <line x1="22" y1="78" x2="29" y2="71" />
+              <line x1="71" y1="29" x2="78" y2="22" />
+            </svg>
+          </div>
+
+          <div className="cta-desenho d-torta">
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="rgba(90, 45, 12, 0.05)" strokeWidth="3.5" strokeLinejoin="round" strokeLinecap="round">
+              <path d="M 20,70 L 80,70 L 65,30 L 20,30 Z" />
+              <line x1="20" y1="50" x2="73" y2="50" />
+              <path d="M 65,30 C 60,33 55,30 50,33 C 45,30 40,33 35,30 C 30,33 25,30 20,30" />
+              <circle cx="45" cy="22" r="5" fill="rgba(90, 45, 12, 0.05)" />
+            </svg>
+          </div>
+
+          <div className="cta-desenho d-fouet">
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="rgba(90, 45, 12, 0.05)" strokeWidth="3.5" strokeLinecap="round">
+              <line x1="30" y1="70" x2="45" y2="55" />
+              <circle cx="28" cy="72" r="3" />
+              <path d="M 45,55 C 55,40 70,45 80,25 C 75,15 50,40 45,55" />
+              <path d="M 45,55 C 60,45 65,35 75,20 C 65,10 45,35 45,55" />
+              <path d="M 45,55 C 50,50 60,30 65,15 C 55,10 40,40 45,55" />
+            </svg>
+          </div>
+
+          <div className="cta-desenho d-rolo">
+            <svg width="90" height="80" viewBox="0 0 120 100" fill="none" stroke="rgba(90, 45, 12, 0.05)" strokeWidth="3.5" strokeLinejoin="round" strokeLinecap="round">
+              <rect x="30" y="38" width="60" height="24" rx="3" />
+              <path d="M 30,50 L 15,50 M 15,46 L 15,54" />
+              <path d="M 90,50 L 105,50 M 105,46 L 105,54" />
+            </svg>
+          </div>
+
+          <div className="cta-desenho d-estrela1">
+            <svg width="30" height="30" viewBox="0 0 40 40" fill="rgba(90, 45, 12, 0.05)">
+              <path d="M 20,5 Q 20,20 35,20 Q 20,20 20,35 Q 20,20 5,20 Q 20,20 20,5 Z" />
+            </svg>
+          </div>
+
+          <div className="cta-desenho d-estrela2">
+            <svg width="24" height="24" viewBox="0 0 40 40" fill="rgba(90, 45, 12, 0.05)">
+              <path d="M 20,5 Q 20,20 35,20 Q 20,20 20,35 Q 20,20 5,20 Q 20,20 20,5 Z" />
+            </svg>
+          </div>
         </div>
         <div className="section-container cta-inner">
           <h2>Pronto para pedir?</h2>
@@ -599,10 +709,64 @@ export default function App() {
           </a>
           <p className="cta-tel">Ou ligue: <a href="tel:+551637616633">(16) 3761-6633</a></p>
         </div>
+        {/* Chocolate derretendo no rodapé da CTA */}
+        <div className="cta-chocolate-drip">
+          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M 0 80 L 0 40 Q 30 10 60 40 Q 90 70 120 40 Q 170 10 220 40 Q 270 70 320 40 Q 370 10 420 40 Q 480 70 540 40 Q 590 10 640 40 Q 690 70 740 40 Q 790 10 840 40 Q 900 70 960 40 Q 1010 10 1060 40 Q 1120 70 1180 40 Q 1230 10 1280 40 Q 1340 70 1400 40 Q 1420 10 1440 40 L 1440 80 Z" fill="var(--marrom)" />
+          </svg>
+        </div>
       </section>
 
       {/* FOOTER */}
       <footer className="footer">
+
+        {/* Elementos decorativos no fundo do footer */}
+        <div className="footer-bg">
+          <div className="footer-circle c1"></div>
+          <div className="footer-circle c2"></div>
+
+          {/* Desenhos vetoriais de confeitaria no rodapé (Linhas super sutis em dourado/branco) */}
+          <div className="footer-desenho d-sol">
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="rgba(247, 214, 69, 0.04)" strokeWidth="3.5" strokeLinecap="round">
+              <circle cx="50" cy="50" r="20" />
+              <line x1="50" y1="10" x2="50" y2="20" />
+              <line x1="50" y1="80" x2="50" y2="90" />
+              <line x1="10" y1="50" x2="20" y2="50" />
+              <line x1="80" y1="50" x2="90" y2="50" />
+              <line x1="22" y1="22" x2="29" y2="29" />
+              <line x1="71" y1="71" x2="78" y2="78" />
+              <line x1="22" y1="78" x2="29" y2="71" />
+              <line x1="71" y1="29" x2="78" y2="22" />
+            </svg>
+          </div>
+
+          <div className="footer-desenho d-torta">
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="rgba(247, 214, 69, 0.04)" strokeWidth="3.5" strokeLinejoin="round" strokeLinecap="round">
+              <path d="M 20,70 L 80,70 L 65,30 L 20,30 Z" />
+              <line x1="20" y1="50" x2="73" y2="50" />
+              <path d="M 65,30 C 60,33 55,30 50,33 C 45,30 40,33 35,30 C 30,33 25,30 20,30" />
+              <circle cx="45" cy="22" r="5" fill="rgba(247, 214, 69, 0.04)" />
+            </svg>
+          </div>
+
+          <div className="footer-desenho d-fouet">
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="rgba(247, 214, 69, 0.04)" strokeWidth="3.5" strokeLinecap="round">
+              <line x1="30" y1="70" x2="45" y2="55" />
+              <circle cx="28" cy="72" r="3" />
+              <path d="M 45,55 C 55,40 70,45 80,25 C 75,15 50,40 45,55" />
+              <path d="M 45,55 C 60,45 65,35 75,20 C 65,10 45,35 45,55" />
+              <path d="M 45,55 C 50,50 60,30 65,15 C 55,10 40,40 45,55" />
+            </svg>
+          </div>
+
+          <div className="footer-desenho d-rolo">
+            <svg width="90" height="80" viewBox="0 0 120 100" fill="none" stroke="rgba(247, 214, 69, 0.04)" strokeWidth="3.5" strokeLinejoin="round" strokeLinecap="round">
+              <rect x="30" y="38" width="60" height="24" rx="3" />
+              <path d="M 30,50 L 15,50 M 15,46 L 15,54" />
+              <path d="M 90,50 L 105,50 M 105,46 L 105,54" />
+            </svg>
+          </div>
+        </div>
 
         {/* Corpo do footer */}
         <div className="footer-body">
@@ -683,16 +847,16 @@ export default function App() {
         <div className="footer-bottom">
           <div className="section-container footer-bottom-inner">
             <p>© {new Date().getFullYear()} Sol Tortas — Todos os direitos reservados.</p>
-            <p>Feito com ❤️ por <a href="#" target="_blank" rel="noopener noreferrer">Thales Santos</a></p>
+            <p className="footer-made-by">
+              <span className="fmb-comment">//</span>
+              <span className="fmb-text"> made by  </span>
+              <a href="https://portfolio-thalessantos.vercel.app/" target="_blank" rel="noopener noreferrer" className="fmb-name">"Thales Santos"</a>
+              <span className="fmb-dot"> · {new Date().getFullYear()}</span>
+            </p>
           </div>
         </div>
 
       </footer>
-
-      {/* WhatsApp flutuante */}
-      <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="whatsapp-float" aria-label="WhatsApp">
-        <img src="/whatsapp.png" alt="WhatsApp" />
-      </a>
     </div>
   );
 }
