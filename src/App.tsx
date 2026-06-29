@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const WHATSAPP_NUMBER = "5516991428360";
 
@@ -857,6 +858,7 @@ export default function App() {
         </div>
 
       </footer>
+      <Analytics />
     </div>
   );
 }
