@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const WHATSAPP_NUMBER = "5516991428360";
 
@@ -201,12 +201,67 @@ export default function App() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [lightboxImg, setLightboxImg] = useState<{ src: string; nome: string } | null>(null);
 
-  const CARDS_VISIVEIS = 3;
-  const totalSlides = depoimentos.length - CARDS_VISIVEIS + 1;
+  const [cardsVisiveis, setCardsVisiveis] = useState(3);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600) setCardsVisiveis(1);
+      else if (window.innerWidth <= 900) setCardsVisiveis(2);
+      else setCardsVisiveis(3);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const fecharLightbox = useCallback(() => setLightboxImg(null), []);
+
+  useEffect(() => {
+    if (!lightboxImg) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") fecharLightbox(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightboxImg, fecharLightbox]);
+
+  const totalSlides = Math.max(1, depoimentos.length - cardsVisiveis + 1);
+
+  useEffect(() => {
+    if (carouselIndex >= totalSlides) {
+      setCarouselIndex(Math.max(0, totalSlides - 1));
+    }
+  }, [totalSlides, carouselIndex]);
 
   const carouselAnterior = () => setCarouselIndex(i => Math.max(0, i - 1));
   const carouselProximo = () => setCarouselIndex(i => Math.min(totalSlides - 1, i + 1));
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && carouselIndex < totalSlides - 1) {
+      carouselProximo();
+    }
+    if (isRightSwipe && carouselIndex > 0) {
+      carouselAnterior();
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setNavScrolled(window.scrollY > 60);
@@ -275,9 +330,9 @@ export default function App() {
             </a>
           </div>
           <div className="hero-stats">
-            <div className="stat"><strong>500+</strong><span>Clientes felizes</span></div>
+            <div className="stat"><strong>+500</strong><span>Clientes satisfeitos</span></div>
             <div className="stat-divider"></div>
-            <div className="stat"><strong>3 anos</strong><span>De experiência</span></div>
+            <div className="stat"><strong>+10 anos</strong><span>De experiência</span></div>
             <div className="stat-divider"></div>
             <div className="stat"><strong>100%</strong><span>Artesanal</span></div>
           </div>
@@ -380,8 +435,20 @@ export default function App() {
             {produtos[categoriaAtiva].items.map((p, i) => (
               <div key={i} className="produto-card">
                 {p.tag && <span className="produto-tag">{p.tag}</span>}
-                <div className="produto-img-wrapper">
+                <div
+                  className="produto-img-wrapper produto-img-clicavel"
+                  onClick={() => setLightboxImg({ src: p.imagem, nome: p.nome })}
+                  title="Clique para ampliar"
+                >
                   <img src={p.imagem} alt={p.nome} className="produto-img" loading="lazy" />
+                  <div className="produto-img-overlay">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </div>
                 </div>
                 <h3>{p.nome}</h3>
                 <p>{p.desc}</p>
@@ -559,10 +626,10 @@ export default function App() {
               </svg>
             </button>
 
-            <div className="depoimentos-carousel-viewport">
+            <div className="depoimentos-carousel-viewport" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
               <div
                 className="depoimentos-carousel-track"
-                style={{ transform: `translateX(calc(-${carouselIndex} * (100% / 3 + 1.25rem * 2 / 3)))` }}
+                style={{ transform: `translateX(calc(-${carouselIndex} * (100% / ${cardsVisiveis} + 1.25rem / ${cardsVisiveis})))` }}
               >
                 {depoimentos.map((d, i) => (
                   <div key={i} className="depoimento-card google-card carousel-card">
@@ -826,6 +893,23 @@ export default function App() {
               </a>
 
               <a
+                href="https://www.facebook.com/sol.torta.2025"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-contact-item face"
+              >
+                <span className="fci-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span className="fci-label">
+                  <strong>Facebook</strong>
+                  <small>@sol.torta.2025</small>
+                </span>
+              </a>
+
+              <a
                 href="tel:+551637616633"
                 className="footer-contact-item tel"
               >
@@ -857,6 +941,22 @@ export default function App() {
         </div>
 
       </footer>
+
+      {/* LIGHTBOX */}
+      {lightboxImg && (
+        <div className="lightbox-overlay" onClick={fecharLightbox}>
+          <button className="lightbox-close" onClick={fecharLightbox} aria-label="Fechar">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+          <div className="lightbox-content" onClick={e => e.stopPropagation()}>
+            <img src={lightboxImg.src} alt={lightboxImg.nome} className="lightbox-img" />
+            <p className="lightbox-nome">{lightboxImg.nome}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
