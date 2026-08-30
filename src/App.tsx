@@ -8,32 +8,70 @@ const produtos = [
     categoria: "Bolos",
     items: [
       {
-        nome: "Bolo de Chocolate",
-        desc: "Recheado com ganache e coberto com raspas de chocolate belga",
-        preco: "R$ 95,00",
-        tag: "Mais Pedido",
-        imagem: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80"
+        nome: "Bolo de Fubá",
+        desc: "Com cobertura de goiabada. Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 45,00",
+        tag: "",
+        imagem: "./prod/bolo-fubá.jpeg"
       },
       {
-        nome: "Bolo Red Velvet",
-        desc: "Massa aveludada vermelha com cobertura de cream cheese artesanal",
-        preco: "R$ 105,00",
+        nome: "Bolo de Brigadeiro",
+        desc: "Com cobertura de brigadeiro. Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 50,00",
+        tag: "Mais Pedido",
+        imagem: "./prod/bolo-brig (1).jpeg"
+      },
+      {
+        nome: "Bolo de Leite Ninho",
+        desc: "Com cobertura de leite ninho. Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 50,00",
         tag: "",
-        imagem: "https://images.unsplash.com/photo-1616260887771-310191528b8c?w=600&auto=format&fit=crop&q=80"
+        imagem: "./prod/bolo-ninho.jpeg"
+      },
+      {
+        nome: "Bolo de Massa Branca",
+        desc: "Com cobertura de doce de leite. Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 50,00",
+        tag: "",
+        imagem: "./prod/bolo-massa.jpeg"
+      },
+      {
+        nome: "Bolo Churros",
+        desc: "Com cobertura de doce de leite. Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 50,00",
+        tag: "",
+        imagem: "./prod/bolo-churros.jpeg"
       },
       {
         nome: "Bolo de Cenoura",
-        desc: "Tradicional bolo de cenoura com calda de chocolate meio amargo",
-        preco: "R$ 75,00",
+        desc: "Com cobertura de brigadeiro. Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 50,00",
         tag: "",
-        imagem: "https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?w=600&auto=format&fit=crop&q=80"
+        imagem: "./prod/bolo-cenoura.jpeg"
       },
       {
-        nome: "Bolo de Limão Siciliano",
-        desc: "Massa fofinha com curd de limão e merengue tostado",
-        preco: "R$ 98,00",
-        tag: "Novidade",
-        imagem: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=600&auto=format&fit=crop&q=80"
+        nome: "Bolo Vulcão",
+        desc: "Bolo de Chocolate com muita cobertura de brigadeiro em extravagância! Serve aproximadamente 12 ou mais pessoas.",
+        preco: "R$ 70,00",
+        tag: "Especial",
+        imagem: "./prod/bolo-vulcão.png"
+      },
+      {
+        nome: "Bolo de Aniversário/Festa",
+        desc: "Massa branca ou chocolate. Consulte o orçamento para outras opções.",
+        sabores: [
+          "Brigadeiro clássico",
+          "Leite Ninho",
+          "Geleia de Morango",
+          "Abacaxi",
+          "Doce de Leite",
+          "Ameixa",
+          "Prestígio",
+          "Floresta Negra",
+        ],
+        preco: "R$ 60,00/kg",
+        tag: "A partir de R$ 60,00/kg",
+        imagem: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&auto=format&fit=crop&q=80"
       },
     ],
   },
@@ -99,7 +137,7 @@ const produtos = [
         desc: "Mini pizzas assadas, massa macia e recheio caprichado (pedido mínimo a partir de 50 unidades).",
         preco: "R$ 130,00",
         tag: "Assados",
-        imagem: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80"
+        imagem: "https://supposed-sapphire-tfivs5j9.edgeone.dev/WhatsApp%20Image%202026-06-28%20at%2022.02.00.jpeg"
       },
       {
         nome: "Empadinhas (Cento)",
@@ -123,13 +161,6 @@ const produtos = [
         imagem: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=600&auto=format&fit=crop&q=80"
       },
       {
-        nome: "Batata Recheada",
-        desc: "Super cremosa e recheada na hora. Escolha o sabor: Frango c/ Catupiry, Presunto e Queijo, ou À Bolonhesa.",
-        preco: "R$ 25,00",
-        tag: "Sucesso",
-        imagem: "https://images.unsplash.com/photo-1599321955726-e048426fc9ad?w=600&auto=format&fit=crop&q=80"
-      },
-      {
         nome: "Pastel de Feira (Salgado)",
         desc: "Pastel frito super sequinho. Sabores: Carne e Queijo, Pizza, Presunto e Queijo, Frango c/ Catupiry, ou Queijo.",
         preco: "R$ 10,00",
@@ -146,33 +177,45 @@ const produtos = [
     ],
   },
   {
+    categoria: "Pratos Quentes",
+    items: [
+      {
+        nome: "Batata Recheada",
+        desc: "Super cremosa e recheada na hora. Escolha o sabor: Frango c/ Catupiry, Presunto e Queijo, ou À Bolonhesa.",
+        preco: "R$ 25,00",
+        tag: "Sucesso",
+        imagem: "https://images.unsplash.com/photo-1599321955726-e048426fc9ad?w=600&auto=format&fit=crop&q=80"
+      },
+    ],
+  },
+  {
     categoria: "Kits Festa",
     items: [
       {
         nome: "Kit Festa 1",
         desc: "Ideal para 6 pessoas. Inclui: 1 Bolo redondo artesanal, 15 Docinhos gourmet e 50 Salgadinhos fritos/assados.",
-        preco: "R$ 160,00",
+        preco: "R$ 170,00",
         tag: "Para 6 Pessoas",
         imagem: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&auto=format&fit=crop&q=80"
       },
       {
         nome: "Kit Festa 2",
         desc: "Ideal para 10 pessoas. Inclui: 1 Bolo redondo artesanal, 20 Docinhos gourmet e 100 Salgadinhos fritos/assados.",
-        preco: "R$ 280,00",
+        preco: "R$ 240,00",
         tag: "Recomendado",
         imagem: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&auto=format&fit=crop&q=80"
       },
       {
         nome: "Kit Festa 3",
         desc: "Ideal para 15 pessoas. Inclui: 1 Bolo artesanal, 30 Docinhos gourmet e 150 Salgadinhos fritos/assados.",
-        preco: "R$ 325,00",
+        preco: "R$ 300,00",
         tag: "Mais Pedido",
         imagem: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&auto=format&fit=crop&q=80"
       },
       {
         nome: "Kit Festa 4",
         desc: "Ideal para 25 pessoas. Inclui: 1 Bolo artesanal, 50 Docinhos gourmet e 250 Salgadinhos fritos/assados.",
-        preco: "R$ 410,00",
+        preco: "R$ 450,00",
         tag: "Completo",
         imagem: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&auto=format&fit=crop&q=80"
       },
@@ -181,17 +224,18 @@ const produtos = [
 ];
 
 const depoimentos = [
-  { nome: "Ana Paula", texto: "Os melhores doces da cidade! Atendimento maravilhoso, fiz meu pedido e chegou tudo perfeito. Super recomendo! 🎂", estrelas: 5, tempo: "há 2 semanas", cor: "#f28b3a" },
-  { nome: "João Pedro", texto: "A torta de limão é simplesmente perfeita. Não consigo pedir de outro lugar! A massa é leve e o recheio tem o ponto certo de acidez.", estrelas: 5, tempo: "há 1 mês", cor: "#4285f4" },
-  { nome: "Camila Souza", texto: "Entrega rápida e tudo fresquinho. Virei cliente fiel desde o primeiro pedido! Os brigadeiros gourmet são incríveis.", estrelas: 5, tempo: "há 3 semanas", cor: "#34a853" },
-  { nome: "Mariana Lima", texto: "Pedi o kit festa para o aniversário da minha filha e todos adoraram! Os salgadinhos fritos são irresistíveis. Já reservei para o próximo mês! 🎉", estrelas: 5, tempo: "há 1 semana", cor: "#ea4335" },
-  { nome: "Rafael Costa", texto: "Brigadeiros de pistache são simplesmente divinos! Qualidade incrível, embalagem linda. Todo mundo no escritório pediu o contato da Sol.", estrelas: 5, tempo: "há 2 meses", cor: "#9c27b0" },
-  { nome: "Patrícia Alves", texto: "Melhor bolo de cenoura que já comi na vida! Atendimento super atencioso e entrega pontual. Nota 10 para a Sol Tortas! 🌟", estrelas: 5, tempo: "há 3 dias", cor: "#00897b" },
+  { nome: "Humberto Alves", texto: "Muito bom tudo que ela faz literalmente...amo super indico", estrelas: 5, tempo: "há 1 ano", cor: "#4285f4" },
+  { nome: "Thales Santos", texto: "Excelente culinária, melhor salgado e bolo da região!!!!", estrelas: 5, tempo: "há 2 anos", cor: "#f28b3a" },
+  { nome: "Karen Souza", texto: "Ótimos produtos, muito saborosos e com muita qualidade.", estrelas: 5, tempo: "há 5 anos", cor: "#34a853" },
+  { nome: "Alexandre Rampim de Lima", texto: "Ótimo atendimento, ótimos salgados, recomendo.", estrelas: 5, tempo: "há 4 anos", cor: "#ea4335" },
+  { nome: "Edmilson Teixeira", texto: "salgados e bolos de excelente qualidade", estrelas: 5, tempo: "há 2 anos", cor: "#9c27b0" },
+  { nome: "Kamilli Gabrieli", texto: "Comida maravilhosa e atendimento ótimo! Parabéns!", estrelas: 5, tempo: "há 4 anos", cor: "#00897b" },
 ];
 
-function abrirWhatsapp(produto: string, preco: string) {
+function abrirWhatsapp(produto: string, preco: string, sabor?: string | null) {
+  const nomeProduto = sabor ? `${produto} (Sabor: ${sabor})` : produto;
   const mensagem = encodeURIComponent(
-    `Olá Sol! Tudo bem? Gostaria de pedir:\n\n🍰 *${produto}* — ${preco}\n\nPoderia me dar mais informações?`
+    `Olá Sol! Tudo bem? Gostaria de pedir:\n\n🍰 *${nomeProduto}* — ${preco}\n\nPoderia me dar mais informações?`
   );
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${mensagem}`, "_blank");
 }
@@ -202,6 +246,8 @@ export default function App() {
   const [menuAberto, setMenuAberto] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [lightboxImg, setLightboxImg] = useState<{ src: string; nome: string } | null>(null);
+  const [modalSabores, setModalSabores] = useState<{ nome: string; preco: string; sabores: string[] } | null>(null);
+  const [saborSelecionado, setSaborSelecionado] = useState<string | null>(null);
 
   const [cardsVisiveis, setCardsVisiveis] = useState(3);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -219,13 +265,18 @@ export default function App() {
   }, []);
 
   const fecharLightbox = useCallback(() => setLightboxImg(null), []);
+  const fecharModalSabores = useCallback(() => setModalSabores(null), []);
 
   useEffect(() => {
-    if (!lightboxImg) return;
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") fecharLightbox(); };
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        fecharLightbox();
+        fecharModalSabores();
+      }
+    };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [lightboxImg, fecharLightbox]);
+  }, [fecharLightbox, fecharModalSabores]);
 
   const totalSlides = Math.max(1, depoimentos.length - cardsVisiveis + 1);
 
@@ -345,6 +396,7 @@ export default function App() {
           <div className="floating-tag tag1">🎂 Bolos</div>
           <div className="floating-tag tag2">🍬 Doces</div>
           <div className="floating-tag tag3">🥐 Salgados</div>
+
         </div>
         <div className="hero-wave">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
@@ -450,13 +502,31 @@ export default function App() {
                     </svg>
                   </div>
                 </div>
-                <h3>{p.nome}</h3>
-                <p>{p.desc}</p>
-                <div className="produto-footer">
-                  <strong className="produto-preco">{p.preco}</strong>
-                  <button className="btn-pedir" onClick={() => abrirWhatsapp(p.nome, p.preco)}>
-                    Pedir agora
-                  </button>
+                <div className="produto-card-body">
+                  <h3>{p.nome}</h3>
+                  <p>{p.desc}</p>
+                  {p.sabores && (
+                    <div className="produto-sabores-btn-wrapper">
+                      <button
+                        className="btn-ver-sabores"
+                        onClick={() => {
+                          setModalSabores({ nome: p.nome, preco: p.preco, sabores: p.sabores });
+                          setSaborSelecionado(null);
+                        }}
+                      >
+                        Ver opções de sabores
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                  <div className="produto-footer">
+                    <strong className="produto-preco">{p.preco}</strong>
+                    <button className="btn-pedir" onClick={() => abrirWhatsapp(p.nome, p.preco)}>
+                      Pedir agora
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -485,7 +555,7 @@ export default function App() {
             <h2>Sobre a Sol Tortas</h2>
             <p>A Sol Tortas nasceu da paixão por criar doces artesanais que trazem conforto, alegria e aquele gostinho de <em>"feito com carinho"</em>.</p>
             <p>Trabalhamos com salgados, bolos e sobremesas feitas com ingredientes de qualidade, direto para a sua mesa com todo o cuidado que você merece.</p>
-            <p>Cada pedido é especial para nós. Seja para aniversário, evento ou para adoçar o seu dia a dia — estamos aqui para tornar cada momento mais doce. 💛</p>
+            <p>Cada pedido é especial para nós. Seja para aniversário, evento ou para adoçar o seu dia a dia, estamos aqui para tornar cada momento mais doce. 💛</p>
             <div className="sobre-features">
               <div className="feature">
                 <span>🌾</span>
@@ -909,20 +979,7 @@ export default function App() {
                 </span>
               </a>
 
-              <a
-                href="tel:+551637616633"
-                className="footer-contact-item tel"
-              >
-                <span className="fci-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <span className="fci-label">
-                  <strong>Telefone</strong>
-                  <small>(16) 3761-6633</small>
-                </span>
-              </a>
+
             </div>
           </div>
         </div>
@@ -954,6 +1011,44 @@ export default function App() {
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
             <img src={lightboxImg.src} alt={lightboxImg.nome} className="lightbox-img" />
             <p className="lightbox-nome">{lightboxImg.nome}</p>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL SABORES */}
+      {modalSabores && (
+        <div className="lightbox-overlay" onClick={fecharModalSabores}>
+          <button className="lightbox-close" onClick={fecharModalSabores} aria-label="Fechar">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+          <div className="modal-sabores-content" onClick={e => e.stopPropagation()}>
+            <h3>Opções de Sabores</h3>
+            <p className="modal-sabores-sub">Para o {modalSabores.nome}</p>
+            <ul className="modal-sabores-list">
+              {modalSabores.sabores.map((s, i) => (
+                <li
+                  key={i}
+                  className={saborSelecionado === s ? 'selecionado' : ''}
+                  onClick={() => setSaborSelecionado(s)}
+                >
+                  <span className="ms-bullet">{saborSelecionado === s ? '✅' : '✨'}</span>
+                  {s}
+                </li>
+              ))}
+            </ul>
+            <button
+              className="btn-primary ms-btn"
+              onClick={() => {
+                abrirWhatsapp(modalSabores.nome, modalSabores.preco, saborSelecionado);
+                fecharModalSabores();
+              }}
+              disabled={!saborSelecionado}
+            >
+              {saborSelecionado ? 'Pedir agora' : 'Selecione um sabor'}
+            </button>
           </div>
         </div>
       )}
